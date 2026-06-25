@@ -98,7 +98,6 @@ Content.ClipsDescendants = true;
 Instance.new("UICorner", Content).CornerRadius = UDim.new(0, 10);
 local Tabs = {};
 local
-
 function CreateTab(name) local Btn = Instance.new("TextButton", TabContainer);
 Btn.Size = UDim2.new(0, 0, 0, 28);
 Btn.AutomaticSize = Enum.AutomaticSize.X;
@@ -150,7 +149,6 @@ local CurrentConfig = {};
 local UIControllers = {};
 local SharedDropdownUpdaters = {};
 local
-
 function CreateButton(parent, text, callback) local btn = Instance.new("TextButton", parent);
 btn.Size = UDim2.new(0, 260, 0, 32);
 btn.BackgroundColor3 = Theme.SurfaceLight;
@@ -161,7 +159,6 @@ btn.TextSize = 12;
 Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6);
 btn.MouseButton1Click: Connect(callback);
 end local
-
 function CreateToggle(parent, text, configKey, callback) local frame = Instance.new("Frame", parent);
 frame.Size = UDim2.new(0, 260, 0, 32);
 frame.BackgroundColor3 = Theme.SurfaceLight;
@@ -191,7 +188,6 @@ end;
 tBtn.MouseButton1Click: Connect(function() UIControllers[configKey](not s); end);
 CurrentConfig[configKey] = false;
 end local
-
 function CreateDropdown(parent, title, options, configKey, callback) local container = Instance.new("Frame", parent);
 container.Size = UDim2.new(0, 260, 0, 32);
 container.BackgroundColor3 = Theme.SurfaceLight;
@@ -245,7 +241,6 @@ optBtn.MouseButton1Click: Connect(function() isOpen = false; TweenService: Creat
 }): Play(); UIControllers[configKey](option); end);
 end CurrentConfig[configKey] = options[1];
 end local
-
 function CreateMultiDropdown(parent, title, options, configKey, callback) local container = Instance.new("Frame", parent);
 container.Size = UDim2.new(0, 260, 0, 32);
 container.BackgroundColor3 = Theme.SurfaceLight;
@@ -274,7 +269,6 @@ local isOpen = false;
 local maxDropHeight = math.min(#options * 30, 150);
 local optBtns = {};
 local
-
 function updateText() local count = 0;
 for k, v in pairs(selected) do
     if v then count = count + 1;
@@ -312,7 +306,6 @@ optBtns[option] = optBtn;
 optBtn.MouseButton1Click: Connect(function() selected[option] = not selected[option]; optBtn.TextColor3 = (selected[option] and Theme.Success) or Theme.TextDim; updateText(); end);
 end CurrentConfig[configKey] = selected;
 end local
-
 function CreateSharedMultiDropdown(parent, title, options, configKey, syncGroupId, sharedTable, callback) local container = Instance.new("Frame", parent);
 container.Size = UDim2.new(0, 260, 0, 32);
 container.BackgroundColor3 = Theme.SurfaceLight;
@@ -342,7 +335,6 @@ local maxDropHeight = math.min(#options * 30, 150);
 local optBtns = {};
 if not SharedDropdownUpdaters[syncGroupId] then SharedDropdownUpdaters[syncGroupId] = {};
 end local
-
 function updateDisplayOnly() local count = 0;
 for k, v in pairs(sharedTable) do
     if v then count = count + 1;
@@ -354,7 +346,6 @@ else mainBtn.Text = "  "..title..
 " Selected  "..((isOpen and "▲") or "▼");
 end end SharedDropdownUpdaters[syncGroupId][configKey] = updateDisplayOnly;
 local
-
 function updateTextAndSave() for _, updateFunc in pairs(SharedDropdownUpdaters[syncGroupId]) do updateFunc();
     end CurrentConfig[configKey] = selected;
 callback(selected);
@@ -385,7 +376,6 @@ optBtns[option] = optBtn;
 optBtn.MouseButton1Click: Connect(function() selected[option] = not selected[option]; sharedTable[option] = selected[option]; optBtn.TextColor3 = (selected[option] and Theme.Success) or Theme.TextDim; updateTextAndSave(); end);
 end CurrentConfig[configKey] = selected;
 end local
-
 function CreateNumberPicker(parent, title, min, max,
     default, configKey, callback) local frame = Instance.new("Frame", parent);
 frame.Size = UDim2.new(0, 260, 0, 32);
@@ -446,7 +436,6 @@ textInput.FocusLost: Connect(function() UIControllers[configKey](textInput.Text)
 CurrentConfig[configKey] =
     default;
 end local
-
 function CreateStringInput(parent, text, placeholder, configKey, callback) local frame = Instance.new("Frame", parent);
 frame.Size = UDim2.new(0, 260, 0, 50);
 frame.BackgroundColor3 = Theme.SurfaceLight;
@@ -483,7 +472,6 @@ end local webhookURL = "";
 local enableWebhook = false;
 local sessionPetCounts = {};
 local
-
 function SendDiscordWebhook(title, msg, color, isTest) if (webhookURL == "") then
 return;
 end
@@ -680,7 +668,6 @@ local mutationList = {
 local customWalkSpeed = 50;
 local enableCustomSpeed = false;
 local
-
 function ForcedTP(targetCFrame) local char = player.Character;
 local hrp = char and char: FindFirstChild("HumanoidRootPart");
 if hrp then hrp.Velocity = Vector3.new(0, 0, 0);
@@ -688,7 +675,6 @@ hrp.CFrame = targetCFrame;
 end end local Net = game: GetService("ReplicatedStorage"): WaitForChild("Shared"): WaitForChild("Packages"): WaitForChild("Network");
 local FIXED_Y = 3;
 local
-
 function smoothFlyTo(hrp, hum, targetPos) local target = Vector3.new(targetPos.X, FIXED_Y, targetPos.Z);
 if hrp then hrp.Anchored = true;
 end
@@ -764,7 +750,6 @@ for _, buff in ipairs(fullBuffsCheckList) do MutationCache[string.lower(buff)] =
     };
 for objName, mutation in pairs(SpecialMutationObjects) do MutationCache[string.lower(objName)] = mutation;
     end local
-
 function GetPetBuffs(petModel) local detectedBuffs = {};
 if not petModel then
 return detectedBuffs;
@@ -925,48 +910,31 @@ CreateToggle(MainTab, "Auto Train & x2 ||—||", "AutoTrain", function(v) autoTr
             if getconnections then
             for _, c in pairs(getconnections(currentTool.Activated)) do c: Fire();
             end end end end);
-        pcall(function()
-            local kickUpgrades = PlayerGui:FindFirstChild("KickUpgrades")
-            if not kickUpgrades then return end
-        
-            local vim = game:GetService("VirtualInputManager")
-        
-            for _, bonus in pairs(kickUpgrades:GetChildren()) do
-                if (bonus.Name == "Bonus" or bonus.Name == "PopBonus") then
-                    if bonus.Visible then
-                        if not bonus:GetAttribute("AutoClicked") then
-                            bonus:SetAttribute("AutoClicked", true)
-                            task.spawn(function()
-                                task.wait(0.3) -- небольшая задержка, чтобы кнопка точно прогрузилась
-        
-                                -- Получаем центр кнопки
-                                local pos = bonus.AbsolutePosition
-                                local size = bonus.AbsoluteSize
-                                local x = pos.X + size.X / 2
-                                local y = pos.Y + size.Y / 2
-        
-                                -- Эмулируем нажатие левой кнопки мыши
-                                vim:SendMouseButtonEvent(x, y, 0, true, game, 0)
-                                task.wait(0.05)
-                                vim:SendMouseButtonEvent(x, y, 0, false, game, 0)
-        
-                                -- Иногда x2 требует двойного нажатия, можно добавить ещё один клик:
-                                task.wait(0.05)
-                                vim:SendMouseButtonEvent(x, y, 0, true, game, 0)
-                                task.wait(0.05)
-                                vim:SendMouseButtonEvent(x, y, 0, false, game, 0)
-                            end)
-                        end
-                    else
-                        bonus:SetAttribute("AutoClicked", nil)
-                    end
-                end
-            end
-        end)
-        task.wait(0.1)
-    end end)  -- закрываем while и task.spawn
-end end);    -- закрываем callback и CreateToggle
-
+        pcall(function() local kickUpgrades = PlayerGui: FindFirstChild("KickUpgrades");
+            if kickUpgrades then
+            for _, bonus in pairs(kickUpgrades: GetChildren()) do
+                if ((bonus.Name == "Bonus") or(bonus.Name == "PopBonus")) then
+            if
+            bonus.Visible then
+            if not bonus: GetAttribute("AutoClicked") then bonus: SetAttribute("AutoClicked", true); task.spawn(function() task.wait(0.2); local imgLabel = bonus: FindFirstChild("ImageLabel"); local targets = {
+                    bonus
+                };
+                if imgLabel then table.insert(targets, imgLabel); end
+                if getconnections then
+                for _, target in pairs(targets) do pcall(function() for _, conn in pairs(getconnections(target.InputBegan)) do conn: Fire({
+                        UserInputType = Enum.UserInputType.MouseButton1,
+                        UserInputState = Enum.UserInputState.Begin
+                    });
+                    conn: Fire({
+                        UserInputType = Enum.UserInputType.Touch,
+                        UserInputState = Enum.UserInputState.Begin
+                    }); end end);
+                pcall(function() for _, conn in pairs(getconnections(target.MouseButton1Down)) do conn: Fire();
+                    end end); pcall(function() for _, conn in pairs(getconnections(target.MouseButton1Up)) do conn: Fire();
+                    end end); pcall(function() for _, conn in pairs(getconnections(target.MouseButton1Click)) do conn: Fire();
+                    end end); pcall(function() for _, conn in pairs(getconnections(target.Activated)) do conn: Fire();
+                    end end); end end end); end
+            else bonus: SetAttribute("AutoClicked", nil); end end end end end); task.wait(0.1); end end); end end);
 CreateToggle(MainTab, "Enable Custom Speed 🏃", "EnableSpeed", function(v) enableCustomSpeed = v;
     if enableCustomSpeed then task.spawn(function() while enableCustomSpeed do pcall(function() local char = player.Character; local hum = char and char: FindFirstChild("Humanoid");
             if hum then hum.WalkSpeed = customWalkSpeed; end end);
@@ -1070,7 +1038,6 @@ end actualToDisplay[item.actual] = item.display;
 end local selectedRarities = {};
 CreateMultiDropdown(EventTab, "Target Ball Rarity ⚽", uiOptions, "TargetBallRarity", function(selected) selectedRarities = selected; end);
 local
-
 function isBallRaritySelected(ballName) if selectedRarities["🌟 All"] then
 return actualToDisplay[ballName] ~ = nil;
 end local displayName = actualToDisplay[ballName];
@@ -1171,7 +1138,6 @@ pcall(function() if (isfolder and not isfolder(ConfigFolder)) then makefolder(Co
 local inputConfigName = "";
 local selectedConfigName = "---";
 local
-
 function GetConfigList() local list = {};
 if listfiles then pcall(function() for _, file in pairs(listfiles(ConfigFolder)) do local fileName = file: match("([^/\\]+)%.json$");
     if fileName then table.insert(list, fileName); end end end);
@@ -1207,7 +1173,6 @@ ConfigScroll.AutomaticCanvasSize = Enum.AutomaticSize.Y;
 local ConfigLayout = Instance.new("UIListLayout", ConfigScroll);
 local isDropOpen = false;
 local
-
 function RefreshDropdownUI() for _, child in pairs(ConfigScroll: GetChildren()) do
     if child: IsA("TextButton") then child: Destroy();
 end end local list = GetConfigList();
@@ -1457,7 +1422,6 @@ CreateToggle(SellTab, "Auto Sell Selected Pets 💸", "AutoSell", function(v) au
             if shouldSell then hum: EquipTool(item); task.wait(0.15); game: GetService("ReplicatedStorage").Shared.Packages.Network.ref_B_Sell: InvokeServer(); task.wait(0.2); end end end end end);
         task.wait(1); end end); end end);
 local
-
 function addLabel(txt, clr) local l = Instance.new("TextLabel", DetailsTab);
 l.Size = UDim2.new(1, 0, 0, 25);
 l.BackgroundTransparency = 1;
