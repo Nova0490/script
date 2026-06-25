@@ -963,6 +963,9 @@ CreateToggle(MainTab, "Auto Train & x2 ||—||", "AutoTrain", function(v) autoTr
                 end
             end
         end)
+task.wait(0.1)   -- ⚠️ вот эта строка была удалена
+    end end)  -- закрываем while и task.spawn
+end end);    -- закрываем callback и CreateToggle
 CreateToggle(MainTab, "Enable Custom Speed 🏃", "EnableSpeed", function(v) enableCustomSpeed = v;
     if enableCustomSpeed then task.spawn(function() while enableCustomSpeed do pcall(function() local char = player.Character; local hum = char and char: FindFirstChild("Humanoid");
             if hum then hum.WalkSpeed = customWalkSpeed; end end);
@@ -1477,4 +1480,4 @@ Tabs[1].Page.Visible = true;
 Tabs[1].Btn.BackgroundColor3 = Theme.Accent;
 Tabs[1].Btn.TextColor3 = Color3.new(0, 0, 0);
 toggleBtn.MouseButton1Click: Connect(function() Main.Visible = not Main.Visible; end);
-end;
+end
