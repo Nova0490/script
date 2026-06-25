@@ -963,9 +963,10 @@ CreateToggle(MainTab, "Auto Train & x2 ||—||", "AutoTrain", function(v) autoTr
                 end
             end
         end)
-task.wait(0.1)   -- ⚠️ вот эта строка была удалена
+        task.wait(0.1)
     end end)  -- закрываем while и task.spawn
 end end);    -- закрываем callback и CreateToggle
+
 CreateToggle(MainTab, "Enable Custom Speed 🏃", "EnableSpeed", function(v) enableCustomSpeed = v;
     if enableCustomSpeed then task.spawn(function() while enableCustomSpeed do pcall(function() local char = player.Character; local hum = char and char: FindFirstChild("Humanoid");
             if hum then hum.WalkSpeed = customWalkSpeed; end end);
