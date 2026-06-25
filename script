@@ -1477,4 +1477,4 @@ Tabs[1].Page.Visible = true;
 Tabs[1].Btn.BackgroundColor3 = Theme.Accent;
 Tabs[1].Btn.TextColor3 = Color3.new(0, 0, 0);
 toggleBtn.MouseButton1Click: Connect(function() Main.Visible = not Main.Visible; end);
-end
+end;
